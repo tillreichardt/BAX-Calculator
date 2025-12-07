@@ -1,14 +1,16 @@
 import berechnung as rechner
 from web_scraper import scrape_bax
 
+
 class Spieler: 
     
-    def __init__(self, vorname:str, nachname:str, verein: str, baxGegner:list, ergebnisse:list):
+    def __init__(self, vorname:str, nachname:str, verein: str, gegner_daten: list):
         self.verein = verein
         self.vorname: str = vorname
         self.nachname: str = nachname
-        self.baxGegner: list = baxGegner
-        self.ergebnisse: list = ergebnisse
+
+        self.baxGegner = [bax for bax, _ in gegner_daten]
+        self.ergebnisse = [ergebnis for _, ergebnis in gegner_daten] 
 
         result = scrape_bax(self.verein, self.vorname, self.nachname)
         if result["einzel"][0][0] in "2025/26":

@@ -10,26 +10,20 @@ def get_bax(vorname, nachname, verein):
         return result["einzel"][1][1]
     return result["einzel"][0][1]
 
+
+
 spielerListe = [
     Spieler(
         "Till", 
         "Reichardt",
         "BC Düsseldorf",
-        baxGegner = [
-            get_bax("Rainer", "Gehring", "Ohligser TV"),
-            get_bax("Leif", "Kaiser", "BC Heiligenhaus"),
-            get_bax("Vincent", "Bergman", "OSC Düsseldorf"),
-            get_bax("Felix", "Köster", "PTSV Wuppertal"),
-            get_bax("Thomas", "Müller", "SFD 75 Düsseldorf"),
-            get_bax("Daniel", "Springob", "BSC Hilden"),
-        ],
-        ergebnisse = [
-            [2, 0],  # Rainer Gehring
-            [2, 0],  # Leif Kaiser
-            [2, 1],  # Vincent Berman
-            [2, 0],  # Felix Köster
-            [0, 2],  # Thomas Müller
-            [0, 2],  # Daniel Springob
+        gegner_daten = [
+            (get_bax("Rainer", "Gehring", "Ohligser TV"), [2,0]),
+            (get_bax("Leif", "Kaiser", "BC Heiligenhaus"), [2,0]),
+            (get_bax("Vincent", "Bergman", "OSC Düsseldorf"), [2,1]),
+            (get_bax("Felix", "Köster", "PTSV Wuppertal"), [2,0]),
+            (get_bax("Thomas", "Müller", "SFD 75 Düsseldorf"), [0,2]),
+            (get_bax("Daniel", "Springob", "BSC Hilden"), [2,0]),
         ]
     )
 ]
