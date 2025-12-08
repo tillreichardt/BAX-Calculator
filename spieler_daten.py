@@ -6,6 +6,8 @@ from web_scraper import scrape_bax
 def get_bax(vorname, nachname, verein):
     result = scrape_bax(verein, vorname, nachname)
 
+    if not result:
+        raise ValueError(f"{vorname} {nachname} is not in the database")
     if result["einzel"][0][0] == "2025/26":
         return result["einzel"][1][1]
     return result["einzel"][0][1]

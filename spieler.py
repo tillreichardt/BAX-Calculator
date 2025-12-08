@@ -13,6 +13,8 @@ class Spieler:
         self.ergebnisse = [ergebnis for _, ergebnis in gegner_daten] 
 
         result = scrape_bax(self.verein, self.vorname, self.nachname)
+        if not result: 
+            raise ValueError(f"{self.vorname} {self.nachname} is not in the database")
         if result["einzel"][0][0] in "2025/26":
             self.baxAlt: int = result["einzel"][1][1]
         else: 
