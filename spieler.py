@@ -21,8 +21,6 @@ class Spieler:
 
     def baxBerechnung(self):
         n = len(self.baxGegner)
-        if n != len(self.ergebnisse):
-            raise ValueError("Länge der BAX_Gegner und Ergebnis Liste muss identisch sein!")
         # --- Startwerte ---
         print(f"Balt: {self.baxAlt}")
         print(f"Gegner: {self.baxGegner}")
