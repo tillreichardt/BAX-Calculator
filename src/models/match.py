@@ -3,7 +3,7 @@ from typing import List
 
 @dataclass
 class EinzelMatch: 
-    bax_gegner: int
+    gegner_bax: int
     ergebnis: List[int]
 
 @dataclass
