@@ -1,4 +1,4 @@
-from spieler_daten import spielerListe
+from src.data.spieler_daten import spielerListe
 
 spieler = spielerListe[0]
 print(f"Name: {spieler.vorname} {spieler.nachname}")
