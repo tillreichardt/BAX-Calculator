@@ -82,5 +82,27 @@ def scrape_bax(gewünschter_verein: str, vorname: str, nachname: str):
     return result
 
 
+
+from functools import lru_cache
+
+
+@lru_cache(maxsize=None)
+def get_bax(vorname, nachname, verein, disziplin):
+    result = scrape_bax(verein, vorname, nachname)
+
+    if not result:
+        raise ValueError(f"{vorname} {nachname} is not in the database")
+    if result[disziplin][0][0] == "2025/26":
+        return result[disziplin][1][1]
+    return result[disziplin][0][1]
+
+def get_bax_einzel(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "einzel")
+
+def get_bax_doppel(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "doppel")
+
+def get_bax_mixed(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "mixed")
 # print(scrape_bax("BC Düsseldorf", "Till", "Reichardt"))
 # print(scrape_bax("BG 62 Dormagen", "Jonas", "Klose"))

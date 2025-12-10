@@ -4,7 +4,7 @@ from bax_tool.src.scraper.web_scraper import scrape_bax
 
 class Spieler: 
     
-    def __init__(self, vorname:str, nachname:str, verein: str, gegner_daten: list):
+    def __init__(self, vorname:str, nachname:str, verein: str, gegner_daten_einzel: list, gegner_daten_doppel: list = None, gegner_daten_mixed: list = None):
         self.verein = verein
         self.vorname: str = vorname
         self.nachname: str = nachname
