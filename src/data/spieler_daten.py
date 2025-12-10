@@ -13,8 +13,8 @@ spielerListe = [
             EinzelMatch(get_bax_einzel("Leif", "Kaiser", "BC Heiligenhaus"), [2,0]),
             EinzelMatch(get_bax_einzel("Vincent", "Bergman", "OSC Düsseldorf"), [2,1]),
             EinzelMatch(get_bax_einzel("Felix", "Köster", "PTSV Wuppertal"), [2,0]),
-            EinzelMatch(get_bax_einzel("Thomas", "Müller", "SFD 75 Düsseldorf"), [2,0]),
-            EinzelMatch(get_bax_einzel("Daniel", "Springob", "BSC Hilden"), [2,0]),
+            EinzelMatch(get_bax_einzel("Thomas", "Müller", "SFD 75 Düsseldorf"), [0,2]),
+            #EinzelMatch(get_bax_einzel("Daniel", "Springob", "BSC Hilden"), [0,2]),
         ],
         gegner_daten_doppel=[   
             DoppelMatch(
@@ -53,12 +53,12 @@ spielerListe = [
                 gegner_bax_2=get_bax_doppel("Anowar", "Mowry", "SFD 75 Düsseldorf"),
                 ergebnis=[2,0]
             ),
-            DoppelMatch(
-                partner_bax=get_bax_doppel("Kirill", "Kuznezow", "BC Düsseldorf"),
-                gegner_bax_1=get_bax_doppel("Daniel", "Springob", "BSC Hilden"),
-                gegner_bax_2=get_bax_doppel("Felix", "Haltaufderheide", "BSC Hilden"),
-                ergebnis=[1,2]
-            )
+            # DoppelMatch(
+            #     partner_bax=get_bax_doppel("Kirill", "Kuznezow", "BC Düsseldorf"),
+            #     gegner_bax_1=get_bax_doppel("Daniel", "Springob", "BSC Hilden"),
+            #     gegner_bax_2=get_bax_doppel("Felix", "Haltaufderheide", "BSC Hilden"),
+            #     ergebnis=[1,2]
+            # )
         ]
     )
 ]
