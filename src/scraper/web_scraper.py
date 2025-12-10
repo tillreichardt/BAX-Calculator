@@ -85,24 +85,23 @@ def scrape_bax(gewünschter_verein: str, vorname: str, nachname: str):
 
 from functools import lru_cache
 
-
 @lru_cache(maxsize=None)
-def get_bax(vorname, nachname, verein, disziplin):
+def get_bax_alle(vorname, nachname, verein):
+    """Gibt ein Dictionary mit allen Disziplinen zurück"""
     result = scrape_bax(verein, vorname, nachname)
-
+    print(f"Getting BAX for {vorname} {nachname}")
     if not result:
         raise ValueError(f"{vorname} {nachname} is not in the database")
+    return result
+
+def get_bax(vorname, nachname, verein, disziplin):
+    """Zugriff auf den gewünschten BAX-Wert aus dem Cache"""
+    result = get_bax_alle(vorname, nachname, verein)
     if result[disziplin][0][0] == "2025/26":
+        print(f"Using 2024/25 BAX for {vorname} {nachname} from {verein} in {disziplin}: {result[disziplin][1][1]}")
         return result[disziplin][1][1]
-    return result[disziplin][0][1]
+    return result[disziplin][0][1]  # fallback
 
-def get_bax_einzel(vorname, nachname, verein):
-    return get_bax(vorname, nachname, verein, "einzel")
 
-def get_bax_doppel(vorname, nachname, verein):
-    return get_bax(vorname, nachname, verein, "doppel")
-
-def get_bax_mixed(vorname, nachname, verein):
-    return get_bax(vorname, nachname, verein, "mixed")
 # print(scrape_bax("BC Düsseldorf", "Till", "Reichardt"))
 # print(scrape_bax("BG 62 Dormagen", "Jonas", "Klose"))
