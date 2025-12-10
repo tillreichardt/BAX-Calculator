@@ -15,7 +15,14 @@ def get_bax(vorname, nachname, verein, disziplin):
         return result[disziplin][1][1]
     return result[disziplin][0][1]
 
+def get_bax_einzel(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "einzel")
 
+def get_bax_doppel(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "doppel")
+
+def get_bax_mixed(vorname, nachname, verein):
+    return get_bax(vorname, nachname, verein, "mixed")
 
 spielerListe = [
     Spieler(
@@ -23,12 +30,12 @@ spielerListe = [
         "Reichardt",
         "BC Düsseldorf",
         gegner_daten=[
-            EinzelMatch(get_bax("Rainer", "Gehring", "Ohligser TV"), [2,0]),
-            EinzelMatch(get_bax("Leif", "Kaiser", "BC Heiligenhaus"), [2,0]),
-            EinzelMatch(get_bax("Vincent", "Bergman", "OSC Düsseldorf"), [2,1]),
-            EinzelMatch(get_bax("Felix", "Köster", "PTSV Wuppertal"), [2,0]),
-            EinzelMatch(get_bax("Thomas", "Müller", "SFD 75 Düsseldorf"), [2,0]),
-            EinzelMatch(get_bax("Daniel", "Springob", "BSC Hilden"), [2,0]),
+            EinzelMatch(get_bax_einzel("Rainer", "Gehring", "Ohligser TV"), [2,0]),
+            EinzelMatch(get_bax_einzel("Leif", "Kaiser", "BC Heiligenhaus"), [2,0]),
+            EinzelMatch(get_bax_einzel("Vincent", "Bergman", "OSC Düsseldorf"), [2,1]),
+            EinzelMatch(get_bax_einzel("Felix", "Köster", "PTSV Wuppertal"), [2,0]),
+            EinzelMatch(get_bax_einzel("Thomas", "Müller", "SFD 75 Düsseldorf"), [2,0]),
+            EinzelMatch(get_bax_einzel("Daniel", "Springob", "BSC Hilden"), [2,0]),
         ]
     )
 ]
