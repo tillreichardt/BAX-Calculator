@@ -1,6 +1,6 @@
-import berechnung as rechner
-from bax_tool.src.scraper.web_scraper import scrape_bax
-
+import src.berechnung.berechnung as rechner
+from src.scraper.web_scraper import get_bax_einzel, get_bax_doppel, get_bax_mixed
+from math import floor
 
 class Spieler: 
     
@@ -9,33 +9,32 @@ class Spieler:
         self.vorname: str = vorname
         self.nachname: str = nachname
 
-        self.baxGegner = [bax for bax, _ in gegner_daten]
-        self.ergebnisse = [ergebnis for _, ergebnis in gegner_daten] 
+        self.baxGegnerEinzel = gegner_daten_einzel
+        self.baxGegnerDoppel = gegner_daten_doppel
+        self.baxGegnerMixed = gegner_daten_mixed
 
-        result = scrape_bax(self.verein, self.vorname, self.nachname)
-        if not result: 
-            raise ValueError(f"{self.vorname} {self.nachname} is not in the database")
-        if result["einzel"][0][0] in "2025/26":
-            self.baxAlt: int = result["einzel"][1][1]
-        else: 
-            self.baxAlt: int = result["einzel"][0][1]
+        self.baxAltEinzel = get_bax_einzel(vorname, nachname, verein)
+        self.baxAltDoppel = get_bax_doppel(vorname, nachname, verein)
+        self.baxAltMixed = get_bax_mixed(vorname, nachname, verein) 
+
+        
             
 
     def baxBerechnungEinzel(self):
         return rechner.berechne_bax(
-            bax_alt=self.baxAltEinzel,
-            bax_gegner_liste=self.baxGegnerEinzel,
-            ergebnis_liste=self.ergebnisseEinzel,
+            bax_alt=get_bax_einzel(self.vorname, self.nachname, self.verein),
+            bax_gegner_liste=[t.gegner_bax for t in self.baxGegnerEinzel],
+            ergebnis_liste=[t.ergebnis for t in self.baxGegnerEinzel],
             titel="Einzel"
         )
     
     def baxBerechnungDoppel(self):  
-        partner_bax_liste = [t[0] for t in self.baxGegnerDoppel]
-        partner_mittel = sum(partner_bax_liste) / len(partner_bax_liste)
+        partner_bax_liste = [d.partner_bax for d in self.baxGegnerDoppel]
+        partner_mittel = floor(sum(partner_bax_liste) / len(partner_bax_liste))
 
-        bax_eigener = (self.baxAltDoppel + 0.25 * partner_mittel) / 2
-        bax_gegner = [sum(t[1]) / 2 for t in self.baxGegnerDoppel]
-        ergebnisse = [t[2] for t in self.baxGegnerDoppel]
+        bax_eigener = floor((get_bax_doppel(self.vorname, self.nachname, self.verein) + 0.25 * partner_mittel) / 2)
+        bax_gegner = [floor(sum([t.gegner_bax_1, t.gegner_bax_2]) / 2) for t in self.baxGegnerDoppel]
+        ergebnisse = [t.ergebnis for t in self.baxGegnerDoppel]
 
         return rechner.berechne_bax(
             bax_alt=bax_eigener,
