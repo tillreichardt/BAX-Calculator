@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from src.scraper.local_cache import get_from_cache, save_to_cache
 
 def scrape_bax(gewünschter_verein: str, vorname: str, nachname: str):
     url = f"https://www.badminton-bax.de/index.php/bax-portal/spieler-entwicklung?name={nachname}&vorname={vorname}&vom_start="
@@ -80,28 +81,37 @@ def scrape_bax(gewünschter_verein: str, vorname: str, nachname: str):
             if saison and bax is not None and aktuelle_kategorie:
                     result[aktuelle_kategorie].append((saison, bax))
     return result
+        
 
-
-
-from functools import lru_cache
-
-@lru_cache(maxsize=None)
 def get_bax_alle(vorname, nachname, verein):
-    """Gibt ein Dictionary mit allen Disziplinen zurück"""
+    cache_key = f"{vorname}_{nachname}_{verein}".replace(" ", "_")
+    
+    # 1. Versuch: Aus lokalem Cache laden
+    cached_data = get_from_cache(cache_key)
+    if cached_data:
+        # print(f"Lade {vorname} {nachname} aus lokalem Cache...")
+        return cached_data
+
+    # 2. Versuch: Wenn nicht im Cache, dann scrapen
+    print(f"Scrape Daten für {vorname} {nachname} neu...")
     result = scrape_bax(verein, vorname, nachname)
-    print(f"Getting BAX for {vorname} {nachname}")
+    
     if not result:
         raise ValueError(f"{vorname} {nachname} is not in the database")
+    
+    # 3. Ergebnis für die Zukunft speichern
+    save_to_cache(cache_key, result)
+    
     return result
 
 def get_bax(vorname, nachname, verein, disziplin):
     """Zugriff auf den gewünschten BAX-Wert aus dem Cache"""
     result = get_bax_alle(vorname, nachname, verein)
     if result[disziplin][0][0] == "2025/26":
-        print(f"Using 2024/25 BAX for {vorname} {nachname} from {verein} in {disziplin}: {result[disziplin][1][1]}")
+        # print(f"Using 2024/25 BAX for {vorname} {nachname} from {verein} in {disziplin}: {result[disziplin][1][1]}")
         return result[disziplin][1][1]
     return result[disziplin][0][1]  # fallback
 
-
+# scrape_score("BC Düsseldorf", "Till", "Reichardt"   )
 # print(scrape_bax("BC Düsseldorf", "Till", "Reichardt"))
 # print(scrape_bax("BG 62 Dormagen", "Jonas", "Klose"))
