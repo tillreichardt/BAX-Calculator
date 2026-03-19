@@ -52,7 +52,7 @@ def berechne_bneu(balt, bniv, berst, bn, n):
             Bneu = (berst + (n + 2) * bn) / (n + 3)
         else:
             Bneu = berst
-    return math.floor(Bneu)
+    return round(Bneu)
 
 
 def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
@@ -72,15 +72,15 @@ def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
         berst = berechne_berst(bniv, spielefaktor, sist, n)
         bn = berechne_bn(bax_alt, spielefaktor, sist, ssoll)
 
-        print(f"BNiv: {bniv:.4f}")
-        print(f"SSoll: {ssoll:.4f}")
-        print(f"SIst: {sist:.4f}")
+        print(f"BNiv: {bniv:.2f}")
+        print(f"SSoll: {ssoll:.2f}")
+        print(f"SIst: {sist:.2f}")
         print(f"Spielefaktor: {spielefaktor}")
-        print(f"Berst: {berst:.4f}")
-        print(f"Bn: {bn:.4f}")
+        print(f"Berst: {berst:.2f}")
+        print(f"Bn: {bn:.2f}")
         print("-" * 20)
 
         bneu = berechne_bneu(bax_alt, bniv, berst, bn, n)
-        print(f"Neuer BAX: {bneu:.4f}")
+        print(f"Neuer BAX: {bneu}")
         return bneu
     
