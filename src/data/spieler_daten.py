@@ -22,7 +22,7 @@ spielerListe = [
             EinzelMatch(get_bax("Robert", "Klöckers", "SFD 75 Düsseldorf", "einzel"), [2,0]),
             EinzelMatch(get_bax("Vincent", "Bergman", "OSC Düsseldorf", "einzel"), [2,1]),
             EinzelMatch(get_bax("Rainer", "Gehring", "Ohligser TV", "einzel"), [2,0]),
-            EinzelMatch(get_bax("Marc", "Abratis", "TSV Meerbusch", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Marc", "Abratis", "TSV Meerbusch", "einzel"), [0,2]),
 
             # Düsseldorfer Stadtmeisterschaften 2025
             EinzelMatch(get_bax("Fabian", "Fischer", "OSC Düsseldorf", "einzel"), [0,2]),
@@ -49,19 +49,11 @@ spielerListe = [
             # Westdeutsche Meisterschaften U22 2026
             EinzelMatch(get_bax("Johann", "Sufryd", "1. BV Mülheim", "einzel"), [0,2]),
 
-            # Test
-            # EinzelMatch(get_bax("Andreas", "Kläs", "BC Burg", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Bogdan", "Cravcenco", "OSC Düsseldorf", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Maximilian", "Schaerlaekens", "Krefelder BC", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Jan", "Hammer", "FC Langenfeld", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Andreas", "Kläs", "BC Burg", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Bogdan", "Cravcenco", "OSC Düsseldorf", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Maximilian", "Schaerlaekens", "Krefelder BC", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Jan", "Hammer", "FC Langenfeld", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Andreas", "Kläs", "BC Burg", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Bogdan", "Cravcenco", "OSC Düsseldorf", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Maximilian", "Schaerlaekens", "Krefelder BC", "einzel"), [2,0]),
-            # EinzelMatch(get_bax("Jan", "Hammer", "FC Langenfeld", "einzel"), [2,0]),
+            # Ostwestfalenpokal 2026
+            EinzelMatch(get_bax("Stephan", "Weber", "SC Melle 03", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Andre", "Bäumer", "SC GW Steinbeck", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Julius", "Hüne", "TV Werther 04", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Joel", "Walkenhorst", "BSC Westerenger", "einzel"), [1,2]),
         ]
     )
 ]
