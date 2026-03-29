@@ -456,16 +456,6 @@ class TurnierplanApp:
         )
         self.footer_lbl.pack(fill="x", padx=14, pady=(0, 14))
 
-        self.chart = tk.Canvas(
-            out,
-            height=200,
-            background=CHART_BG,
-            highlightthickness=1,
-            highlightbackground=BORDER,
-            bd=0,
-        )
-        self.chart.grid(row=1, column=0, sticky="ew", pady=(0, 10))
-
         self.rec_lbl = tk.Label(
             out,
             wraplength=780,
@@ -564,7 +554,6 @@ class TurnierplanApp:
         res = simulate_from_base(balt, n0, bniv0, sist0, steps_data)
         self._render_summary(res, balt, bniv0, n0, sist0)
         self._update_tournament_row_bax(res)
-        self._draw_chart(res)
 
     def _update_tournament_row_bax(self, res: SimulationResult) -> None:
         step_i = 0
