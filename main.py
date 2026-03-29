@@ -1,6 +1,6 @@
-from spieler_daten import spielerListe
+from src.data.spieler_daten import spielerListe
 
-spieler = spielerListe[0]
-print(f"Name: {spieler.vorname} {spieler.nachname}")
-spieler.baxBerechnung()
-print("-" * 20 + "\n\n")
+for spieler in spielerListe:
+    print(f"\nName: {spieler.vorname} {spieler.nachname}")
+    spieler.baxBerechnungEinzel()
+    print("-" * 20 + "\n\n")
