@@ -2,7 +2,6 @@ from src.models.spieler import Spieler
 from src.models.match import DoppelMatch, EinzelMatch
 from src.scraper.web_scraper import get_bax
 
-
 spielerListe = [
     Spieler(
         "Till", 
@@ -54,6 +53,12 @@ spielerListe = [
             EinzelMatch(get_bax("Andre", "Bäumer", "SC GW Steinbeck", "einzel"), [2,0]),
             EinzelMatch(get_bax("Julius", "Hüne", "TV Werther 04", "einzel"), [2,0]),
             EinzelMatch(get_bax("Joel", "Walkenhorst", "BSC Westerenger", "einzel"), [1,2]),
+
+            # Blau-Weißer Alpen Cup 2026
+            EinzelMatch(get_bax("Dominik", "Pehle", "VfB GW Mülheim", "einzel"), [2,1]),
+            EinzelMatch(get_bax("Oliver", "Krause", "VfB GW Mülheim", "einzel"), [0,2]),
+            EinzelMatch(get_bax("Mirko", "Fischer", "TuS Saxonia Münster", "einzel"), [2,1]),
+            EinzelMatch(get_bax("Takayuki", "Nagakura", "TV Datteln", "einzel"), [0,2]),
         ]
     )
 ]
