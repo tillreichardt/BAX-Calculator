@@ -15,7 +15,7 @@ def berechne_ssoll(balt, bax_gegner):
     SSoll = 0
     for b_gegner in bax_gegner:
         WD = berechne_gewinnerwartung(balt, b_gegner)
-        print(f"Gewinnerwartung gegen {b_gegner} ist: {WD * 100:0.2f}%")
+        print(f"Gewinnerwartung gegen {b_gegner} ist: {round(WD * 100)}%")
         SSoll += WD
     return SSoll
 
