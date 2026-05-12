@@ -15,7 +15,7 @@ def berechne_ssoll(balt, bax_gegner):
     SSoll = 0
     for b_gegner in bax_gegner:
         WD = berechne_gewinnerwartung(balt, b_gegner)
-        print(f"Gewinnerwartung gegen {b_gegner} ist: {round(WD * 100)}%")
+        # print(f"Gewinnerwartung gegen {b_gegner} ist: {round(WD * 100)}%")
         SSoll += WD
     return SSoll
 
@@ -57,11 +57,16 @@ def berechne_bneu(balt, bniv, berst, bn, n):
 
 def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
         n = len(bax_gegner_liste)
+        anzahl_gewonnene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege > niederlagen)
+        anzahl_verlorene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege < niederlagen)
 
         print(f"------ {titel} ------")
         print(f"Balt: {bax_alt}")
-        print(f"Gegner: {bax_gegner_liste}")
-        print(f"Ergebnisse: {ergebnis_liste}")
+        # print(f"Gegner: {bax_gegner_liste}")
+        # print(f"Ergebnisse: {ergebnis_liste}")
+        print(f"Gewonnene Matches: {anzahl_gewonnene_matches}")
+        print(f"Verlorene Matches: {anzahl_verlorene_matches}")
+        print(f"Gewinnwahrscheinlichkeit: {anzahl_gewonnene_matches / (anzahl_gewonnene_matches + anzahl_verlorene_matches) * 100 if (anzahl_gewonnene_matches + anzahl_verlorene_matches) > 0 else 0:.0f}%")
         print(f"n: {n}")
         print("-" * 20)
 
