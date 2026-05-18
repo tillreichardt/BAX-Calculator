@@ -45,8 +45,8 @@ spielerListe = [
             EinzelMatch(get_bax("Daniele", "Bertoldo", "BC Matchpoint Berlin", "einzel"), [2,0]),
             EinzelMatch(get_bax("Arttapon", "Setchampa", "OSC Düsseldorf", "einzel"), [2,0]),
 
-            # Westdeutsche Meisterschaften U22 2026
-            EinzelMatch(get_bax("Johann", "Sufryd", "1. BV Mülheim", "einzel"), [0,2]),
+            # Westdeutsche Meisterschaften U22 2026 -- Zählt nicht zur Bax-Berechnung, warum auch immer
+            # EinzelMatch(get_bax("Johann", "Sufryd", "1. BV Mülheim", "einzel"), [0,2]),
 
             # Ostwestfalenpokal 2026
             EinzelMatch(get_bax("Stephan", "Weber", "SC Melle 03", "einzel"), [2,0]),
@@ -70,6 +70,11 @@ spielerListe = [
             EinzelMatch(431, [2,0]),
             EinzelMatch(get_bax("Joshua", "Heinzmann", "1. BV Troisdorf", "einzel"), [1,2]),
 
+            # 4. Schwebebahn Cup 2026
+            # Walkover -- EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Fabian", "Fischer", "OSC Düsseldorf", "einzel"), [0,2]),
+            EinzelMatch(get_bax("Matthias", "Hampel", "BC Heiligenhaus", "einzel"), [2,0]),
+            EinzelMatch(get_bax("Julian", "Klehr", "OSC Düsseldorf", "einzel"), [1,2]),
 
         ]
     )
