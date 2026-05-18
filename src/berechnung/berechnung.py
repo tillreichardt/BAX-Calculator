@@ -66,7 +66,7 @@ def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
         # print(f"Ergebnisse: {ergebnis_liste}")
         print(f"Gewonnene Matches: {anzahl_gewonnene_matches}")
         print(f"Verlorene Matches: {anzahl_verlorene_matches}")
-        print(f"Gewinnwahrscheinlichkeit: {anzahl_gewonnene_matches / (anzahl_gewonnene_matches + anzahl_verlorene_matches) * 100 if (anzahl_gewonnene_matches + anzahl_verlorene_matches) > 0 else 0:.0f}%")
+        print(f"win rate: {anzahl_gewonnene_matches / (anzahl_gewonnene_matches + anzahl_verlorene_matches) * 100 if (anzahl_gewonnene_matches + anzahl_verlorene_matches) > 0 else 0:.0f}%")
         print(f"n: {n}")
         print("-" * 20)
 
