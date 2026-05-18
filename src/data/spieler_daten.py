@@ -67,7 +67,7 @@ spielerListe = [
             EinzelMatch(get_bax("Rene", "Wagner", "FC Rheinland Übach", "einzel"), [2,0]),
             EinzelMatch(get_bax("Stefan", "Reupert", "SC St. Tönis", "einzel"), [2,0]),
             # EinzelMatch(get_bax("Cedric", "Conrad", "BSC Herzogenrath", "einzel"), [2,0]),
-            EinzelMatch(431, [2,0]),
+            EinzelMatch(431, [2,0]), # Cedric Conrad, BSC Herzogenrath -- hat noch keinen BAX vergangener Saison gehabt
             EinzelMatch(get_bax("Joshua", "Heinzmann", "1. BV Troisdorf", "einzel"), [1,2]),
 
             # 4. Schwebebahn Cup 2026
