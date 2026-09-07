@@ -55,12 +55,19 @@ def berechne_bneu(balt, bniv, berst, bn, n):
     return round(Bneu)
 
 
-def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
+def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel="", saison=None):
         n = len(bax_gegner_liste)
+
+        if n == 0:
+            print(f"------ {titel} (Saison {saison}) ------")
+            print(f"Noch keine Spiele erfasst, BAX unverändert: {bax_alt}")
+            print("-" * 20)
+            return bax_alt
+
         anzahl_gewonnene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege > niederlagen)
         anzahl_verlorene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege < niederlagen)
 
-        print(f"------ {titel} ------")
+        print(f"------ {titel} (Saison {saison}) ------")
         print(f"Balt: {bax_alt}")
         # print(f"Gegner: {bax_gegner_liste}")
         # print(f"Ergebnisse: {ergebnis_liste}")
@@ -73,14 +80,15 @@ def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel=""):
         bniv = berechne_bax_niveau(bax_gegner_liste)
         ssoll = berechne_ssoll(bax_alt, bax_gegner_liste)
         sist = berechne_sist(ergebnis_liste)
-        spielefaktor = 7
+        # spielefaktor = 7
+        spielefaktor = 500 / (n+50)
         berst = berechne_berst(bniv, spielefaktor, sist, n)
         bn = berechne_bn(bax_alt, spielefaktor, sist, ssoll)
 
         print(f"BNiv: {bniv:.2f}")
         print(f"SSoll: {ssoll:.2f}")
         print(f"SIst: {sist:.2f}")
-        print(f"Spielefaktor: {spielefaktor}")
+        print(f"Spielefaktor: {spielefaktor:.2f}")
         print(f"Berst: {berst:.2f}")
         print(f"Bn: {bn:.2f}")
         print("-" * 20)
