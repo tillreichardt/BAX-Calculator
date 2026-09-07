@@ -2,7 +2,8 @@ import json
 import os
 from datetime import datetime, timedelta
 
-CACHE_FILE = "bax_cache.json"
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CACHE_FILE = os.path.join(_PROJECT_ROOT, "bax_cache.json")
 # Wie lange sollen die Daten gültig sein? (z.B. 7 Tage)
 CACHE_EXPIRATION_DAYS = 200
 
