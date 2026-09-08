@@ -55,45 +55,71 @@ def berechne_bneu(balt, bniv, berst, bn, n):
     return round(Bneu)
 
 
-def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel="", saison=None):
+def berechne_bax_wert(bax_alt, bax_gegner_liste, ergebnis_liste):
+        """Reine BAX-Berechnung ohne Konsolenausgabe. Gibt (bneu, details) zurück,
+        details enthält alle Zwischenwerte für Anzeige/Auswertung."""
         n = len(bax_gegner_liste)
-
-        if n == 0:
-            print(f"------ {titel} (Saison {saison}) ------")
-            print(f"Noch keine Spiele erfasst, BAX unverändert: {bax_alt}")
-            print("-" * 20)
-            return bax_alt
 
         anzahl_gewonnene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege > niederlagen)
         anzahl_verlorene_matches = sum(1 for siege, niederlagen in ergebnis_liste if siege < niederlagen)
 
-        print(f"------ {titel} (Saison {saison}) ------")
-        print(f"Balt: {bax_alt}")
-        # print(f"Gegner: {bax_gegner_liste}")
-        # print(f"Ergebnisse: {ergebnis_liste}")
-        print(f"Gewonnene Matches: {anzahl_gewonnene_matches}")
-        print(f"Verlorene Matches: {anzahl_verlorene_matches}")
-        print(f"win rate: {anzahl_gewonnene_matches / (anzahl_gewonnene_matches + anzahl_verlorene_matches) * 100 if (anzahl_gewonnene_matches + anzahl_verlorene_matches) > 0 else 0:.0f}%")
-        print(f"n: {n}")
-        print("-" * 20)
+        if n == 0:
+            details = {
+                "n": 0,
+                "gewonnen": 0,
+                "verloren": 0,
+                "win_rate": 0.0,
+            }
+            return bax_alt, details
 
         bniv = berechne_bax_niveau(bax_gegner_liste)
         ssoll = berechne_ssoll(bax_alt, bax_gegner_liste)
         sist = berechne_sist(ergebnis_liste)
-        # spielefaktor = 7
         spielefaktor = 500 / (n+50)
         berst = berechne_berst(bniv, spielefaktor, sist, n)
         bn = berechne_bn(bax_alt, spielefaktor, sist, ssoll)
+        bneu = berechne_bneu(bax_alt, bniv, berst, bn, n)
 
-        print(f"BNiv: {bniv:.2f}")
-        print(f"SSoll: {ssoll:.2f}")
-        print(f"SIst: {sist:.2f}")
-        print(f"Spielefaktor: {spielefaktor:.2f}")
-        print(f"Berst: {berst:.2f}")
-        print(f"Bn: {bn:.2f}")
+        details = {
+            "n": n,
+            "gewonnen": anzahl_gewonnene_matches,
+            "verloren": anzahl_verlorene_matches,
+            "win_rate": anzahl_gewonnene_matches / (anzahl_gewonnene_matches + anzahl_verlorene_matches) * 100 if (anzahl_gewonnene_matches + anzahl_verlorene_matches) > 0 else 0,
+            "bniv": bniv,
+            "ssoll": ssoll,
+            "sist": sist,
+            "spielefaktor": spielefaktor,
+            "berst": berst,
+            "bn": bn,
+        }
+        return bneu, details
+
+
+def berechne_bax(bax_alt, bax_gegner_liste, ergebnis_liste, titel="", saison=None):
+        bneu, details = berechne_bax_wert(bax_alt, bax_gegner_liste, ergebnis_liste)
+
+        print(f"------ {titel} (Saison {saison}) ------")
+
+        if details["n"] == 0:
+            print(f"Noch keine Spiele erfasst, BAX unverändert: {bax_alt}")
+            print("-" * 20)
+            return bneu
+
+        print(f"Balt: {bax_alt}")
+        print(f"Gewonnene Matches: {details['gewonnen']}")
+        print(f"Verlorene Matches: {details['verloren']}")
+        print(f"win rate: {details['win_rate']:.0f}%")
+        print(f"n: {details['n']}")
         print("-" * 20)
 
-        bneu = berechne_bneu(bax_alt, bniv, berst, bn, n)
+        print(f"BNiv: {details['bniv']:.2f}")
+        print(f"SSoll: {details['ssoll']:.2f}")
+        print(f"SIst: {details['sist']:.2f}")
+        print(f"Spielefaktor: {details['spielefaktor']:.2f}")
+        print(f"Berst: {details['berst']:.2f}")
+        print(f"Bn: {details['bn']:.2f}")
+        print("-" * 20)
+
         print(f"Neuer BAX: {bneu}")
         return bneu
-    
+
