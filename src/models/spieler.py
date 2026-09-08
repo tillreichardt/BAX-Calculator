@@ -24,12 +24,14 @@ class Spieler:
 
 
 
-    def baxBerechnungEinzel(self):
+    def baxBerechnungEinzel(self, training_einschliessen: bool = False):
+        matches = [m for m in self.baxGegnerEinzel if training_einschliessen or not m.ist_training]
+        titel = "Einzel" + (" inkl. Training" if training_einschliessen else "")
         return rechner.berechne_bax(
             bax_alt=get_bax(self.vorname, self.nachname, self.verein, "einzel", vorsaison(self.saison)),
-            bax_gegner_liste=[t.gegner_bax for t in self.baxGegnerEinzel],
-            ergebnis_liste=[t.ergebnis for t in self.baxGegnerEinzel],
-            titel="Einzel",
+            bax_gegner_liste=[t.gegner_bax for t in matches],
+            ergebnis_liste=[t.ergebnis for t in matches],
+            titel=titel,
             saison=self.saison
         )
 

@@ -2,9 +2,10 @@ from dataclasses import dataclass
 from typing import List
 
 @dataclass
-class EinzelMatch: 
+class EinzelMatch:
     gegner_bax: int
     ergebnis: List[int]
+    ist_training: bool = False
 
 @dataclass
 class DoppelMatch:
