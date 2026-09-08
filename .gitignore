@@ -1,5 +1,7 @@
 .vscode/
 
+# generierter WebUI-Bericht (von webui.py neu erzeugt)
+bax_report.html
 
 
 # Byte-compiled / optimized / DLL files
