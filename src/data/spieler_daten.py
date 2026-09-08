@@ -12,6 +12,39 @@ spielerListe = [
     Spieler(
         "Till",
         "Reichardt",
+        "FC Langenfeld",
+        saison=SAISON_2026_27,
+        gegner_daten_einzel=[
+            # Saison 2026/27 -- hier neue Spiele eintragen, sobald sie stattgefunden haben.
+            # Gegner-BAX wird automatisch aus der Vorsaison (2025/26) geholt.
+            
+            # Trainingsspiele
+            # 11.08.26
+            EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
+            # 03.09.26
+            EinzelMatch(get_bax("Paul", "Hofschlaeger", "FC Langenfeld", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
+            # 04.09.26
+            EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
+
+            # 1. RLT Verband B-Feld
+            EinzelMatch(get_bax("Jakob", "Hummelsheim", "Kölner FC BG", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
+            EinzelMatch(get_bax("Marco", "Böning", "SSV WBG Bochum", "einzel", vorsaison(SAISON_2026_27)), [2,0]),
+            EinzelMatch(get_bax("Robin", "Langhoff", "BAT Bergisch Gladbach", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
+            EinzelMatch(get_bax("Fabian", "Disic", "SSV WBG Bochum", "einzel", vorsaison(SAISON_2026_27)), [1,2]),
+            EinzelMatch(get_bax("Timo", "Gollan", "VfL Bochum Badminton", "einzel", vorsaison(SAISON_2026_27)), [2,1]),
+        ]
+    ),
+
+
+
+
+
+
+
+
+    Spieler(
+        "Till",
+        "Reichardt",
         "BC Düsseldorf",
         saison=SAISON_2025_26,
         gegner_daten_einzel=[
@@ -96,23 +129,6 @@ spielerListe = [
             EinzelMatch(get_bax("Laurin", "Verweyen", "TG Mülheim/Köln", "einzel", vorsaison(SAISON_2025_26)), [2,0]),
             # EinzelMatch(get_bax("Patrick", "Dasberg", "1. BV Troisdorf", "einzel", vorsaison(SAISON_2025_26)), [0,2]),
             EinzelMatch(435, [0,2]), # Patrick Dasberg, 1. BV Troisdorf -- hat noch keinen BAX vergangener Saison gehabt
-        ]
-    ),
-    Spieler(
-        "Till",
-        "Reichardt",
-        "FC Langenfeld",
-        saison=SAISON_2026_27,
-        gegner_daten_einzel=[
-            # Saison 2026/27 -- hier neue Spiele eintragen, sobald sie stattgefunden haben.
-            # Gegner-BAX wird automatisch aus der Vorsaison (2025/26) geholt.
-            
-            # 1. RLT Verband B-Feld
-            EinzelMatch(get_bax("Jakob", "Hummelsheim", "Kölner FC BG", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
-            EinzelMatch(get_bax("Marco", "Böning", "SSV WBG Bochum", "einzel", vorsaison(SAISON_2026_27)), [2,0]),
-            EinzelMatch(get_bax("Robin", "Langhoff", "BAT Bergisch Gladbach", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
-            EinzelMatch(get_bax("Fabian", "Disic", "SSV WBG Bochum", "einzel", vorsaison(SAISON_2026_27)), [1,2]),
-            EinzelMatch(get_bax("Timo", "Gollan", "VfL Bochum Badminton", "einzel", vorsaison(SAISON_2026_27)), [2,1]),
         ]
     )
 ]
