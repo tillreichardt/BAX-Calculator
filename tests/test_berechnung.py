@@ -36,3 +36,14 @@ def test_berechne_gewinnerwartung_monoton_faellt_mit_gegnerstaerke():
 def test_berechne_bax_ohne_spiele_gibt_balt_unveraendert_zurueck():
     ergebnis = rechner.berechne_bax(bax_alt=475, bax_gegner_liste=[], ergebnis_liste=[], titel="Einzel", saison="2026/27")
     assert ergebnis == 475
+
+
+def test_berechne_bax_wert_stimmt_mit_berechne_bax_ueberein():
+    bax_alt = 450
+    gegner = [430, 460, 470]
+    ergebnisse = [[2, 0], [1, 2], [2, 1]]
+
+    bneu_wert, _details = rechner.berechne_bax_wert(bax_alt, gegner, ergebnisse)
+    bneu_bax = rechner.berechne_bax(bax_alt, gegner, ergebnisse, titel="Test", saison="2025/26")
+
+    assert bneu_wert == bneu_bax

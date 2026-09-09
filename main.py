@@ -10,6 +10,7 @@ def parse_args():
         help='Saison, die berechnet werden soll, z.B. "2026/27" (Standard: 2026/27)',
     )
     parser.add_argument(
+        "-t",
         "--training",
         action="store_true",
         help="Trainingsspiele mit in die Berechnung einbeziehen (Standard: nur offizielle Spiele)",

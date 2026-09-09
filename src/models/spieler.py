@@ -6,13 +6,14 @@ class Spieler:
 
     def __init__(self, vorname:str, nachname:str, verein: str, gegner_daten_einzel: list, gegner_daten_doppel: list = None, gegner_daten_mixed: list = None, saison: str = None):
         """saison: die Saison, in der die übergebenen Spiele stattgefunden haben (z.B. "2026/27").
-        Für die Berechnung wird intern immer der BAX der Vorsaison herangezogen."""
+        Für die Berechnung wird intern immer der BAX der Vorsaison herangezogen.
+        gegner_daten_einzel: Liste von Turnier-Objekten, in Spielreihenfolge."""
         self.verein = verein
         self.vorname: str = vorname
         self.nachname: str = nachname
         self.saison = saison
 
-        self.baxGegnerEinzel = gegner_daten_einzel
+        self.baxTurniereEinzel = gegner_daten_einzel
         self.baxGegnerDoppel = gegner_daten_doppel
         self.baxGegnerMixed = gegner_daten_mixed
 
@@ -21,11 +22,31 @@ class Spieler:
         self.baxAltDoppel = get_bax(vorname, nachname, verein, "doppel", basis_saison)
         self.baxAltMixed = get_bax(vorname, nachname, verein, "mixed", basis_saison)
 
+    def alleSpieleEinzel(self, training_einschliessen: bool = False):
+        """Alle Einzelspiele aller Turniere, in Spielreihenfolge, geflacht."""
+        spiele = []
+        for turnier in self.baxTurniereEinzel:
+            for spiel in turnier.spiele:
+                if training_einschliessen or not spiel.ist_training:
+                    spiele.append(spiel)
+        return spiele
 
-
+    def alleSpieleEinzelDetailliert(self, training_einschliessen: bool = False):
+        """Wie alleSpieleEinzel, aber inklusive Turniername je Spiel (für den Export)."""
+        ergebnis = []
+        for turnier in self.baxTurniereEinzel:
+            for spiel in turnier.spiele:
+                if training_einschliessen or not spiel.ist_training:
+                    ergebnis.append({
+                        "turnier": turnier.name,
+                        "gegner_bax": spiel.gegner_bax,
+                        "ergebnis": spiel.ergebnis,
+                        "ist_training": spiel.ist_training,
+                    })
+        return ergebnis
 
     def baxBerechnungEinzel(self, training_einschliessen: bool = False):
-        matches = [m for m in self.baxGegnerEinzel if training_einschliessen or not m.ist_training]
+        matches = self.alleSpieleEinzel(training_einschliessen)
         titel = "Einzel" + (" inkl. Training" if training_einschliessen else "")
         return rechner.berechne_bax(
             bax_alt=get_bax(self.vorname, self.nachname, self.verein, "einzel", vorsaison(self.saison)),
@@ -34,6 +55,27 @@ class Spieler:
             titel=titel,
             saison=self.saison
         )
+
+    def baxVerlaufEinzel(self, training_einschliessen: bool = False):
+        """BAX-Verlauf als Meilensteine: nach jedem Turnier mit mindestens einem
+        (berücksichtigten) Spiel wird der BAX aus allen bis dahin gespielten
+        Spielen dieser Saison berechnet. Gibt eine Liste von Dicts zurück:
+        {"turnier": Name, "n": Anzahl Spiele insgesamt, "bax": BAX an diesem Punkt}."""
+        bax_alt = get_bax(self.vorname, self.nachname, self.verein, "einzel", vorsaison(self.saison))
+        gegner_bisher = []
+        ergebnisse_bisher = []
+        verlauf = []
+
+        for turnier in self.baxTurniereEinzel:
+            spiele = [s for s in turnier.spiele if training_einschliessen or not s.ist_training]
+            if not spiele:
+                continue
+            gegner_bisher.extend(s.gegner_bax for s in spiele)
+            ergebnisse_bisher.extend(s.ergebnis for s in spiele)
+            bneu, _ = rechner.berechne_bax_wert(bax_alt, gegner_bisher, ergebnisse_bisher)
+            verlauf.append({"turnier": turnier.name, "n": len(gegner_bisher), "bax": bneu})
+
+        return verlauf
 
     def baxBerechnungDoppel(self):
         partner_bax_liste = [d.partner_bax for d in self.baxGegnerDoppel]
