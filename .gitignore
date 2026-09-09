@@ -1,4 +1,5 @@
 .vscode/
+.DS_Store
 
 # generierter WebUI-Bericht (von webui.py neu erzeugt)
 bax_report.html
