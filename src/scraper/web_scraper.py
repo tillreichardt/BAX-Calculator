@@ -121,7 +121,7 @@ def get_bax(vorname, nachname, verein, disziplin, saison):
     frühere_eintraege = [(s, b) for s, b in eintraege if s < saison]
     if frühere_eintraege:
         letzte_saison, bax = max(frühere_eintraege, key=lambda eintrag: eintrag[0])
-        print(f"Hinweis: {vorname} {nachname} hat keinen BAX für {saison} ({disziplin}), verwende letzten bekannten Wert aus {letzte_saison}: {bax}")
+        # print(f"Hinweis: {vorname} {nachname} hat keinen BAX für {saison} ({disziplin}), verwende letzten bekannten Wert aus {letzte_saison}: {bax}")
         return bax
 
     raise ValueError(f"Keine BAX-Daten für Saison {saison} oder früher gefunden ({vorname} {nachname}, {disziplin})")

@@ -20,14 +20,12 @@ spielerListe = [
             Turnier("Trainingsspiele", [
                 # 11.08.26
                 EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
+
                 # 03.09.26
-                EinzelMatch(get_bax("Paul", "Hofschlaeger", "FC Langenfeld", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
+                EinzelMatch(get_bax("Paul", "Hofschlaeger", "FC Langenfeld", "einzel", vorsaison(SAISON_2026_27)), [2,0], ist_training=True),
                 # 04.09.26
+                EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
+                # 08.09.26
                 EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
             ]),
             Turnier("1. RLT Verband B-Feld", [

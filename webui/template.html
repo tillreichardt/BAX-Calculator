@@ -52,8 +52,9 @@
 
   .controls {
     display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    margin: 24px 0;
+    margin: 24px 0 0;
   }
+  .controls-actions { margin: 12px 0 24px; }
   .controls label { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-secondary); }
   select, button.btn {
     font: inherit; font-size: 14px; color: var(--text-primary);
@@ -91,6 +92,7 @@
   .overlay { cursor: crosshair; }
 
   .legend { display: flex; gap: 16px; margin-top: 10px; font-size: 13px; color: var(--text-secondary); flex-wrap: wrap; }
+  .legend[hidden] { display: none; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-key { width: 16px; height: 2px; border-radius: 1px; display: inline-block; }
 
@@ -114,6 +116,97 @@
   .table-view th:nth-child(2), .table-view th:nth-child(3) { text-align: right; }
 
   footer { margin-top: 24px; font-size: 12px; color: var(--text-muted); }
+
+  /* Modal ("fake popup") for entering new matches */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; padding: 20px;
+  }
+  .modal-backdrop[hidden] { display: none; }
+  .modal {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%; max-width: 640px;
+    max-height: 88vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+  .modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; border-bottom: 1px solid var(--gridline); flex: none;
+  }
+  .modal-head h2 { font-size: 16px; margin: 0; }
+  .icon-btn {
+    background: none; border: none; color: var(--text-secondary);
+    font-size: 20px; line-height: 1; cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  }
+  .icon-btn:hover { background: var(--page-plane); }
+  .modal-body { padding: 16px 20px; overflow-y: auto; }
+  .modal-field { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .modal-field[hidden] { display: none; }
+  .modal-field-row { display: flex; gap: 12px; margin-bottom: 16px; }
+  .modal-field-row .modal-field { flex: 1; margin-bottom: 0; }
+  .modal-field label, .modal-legend { font-size: 13px; color: var(--text-secondary); }
+  .modal-field input[type="text"], .modal-field input[type="number"] {
+    font: inherit; font-size: 14px; padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--page-plane); color: var(--text-primary);
+    width: 100%;
+  }
+  .modal-radio-group { gap: 8px; }
+  .radio-option { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-primary); }
+  .radio-option[hidden] { display: none; }
+  .modal-rows-head, .modal-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 116px 28px;
+    gap: 8px; align-items: center;
+  }
+  .modal-rows-head { font-size: 12px; color: var(--text-muted); padding: 0 2px 6px; }
+  .modal-row { margin-bottom: 8px; }
+  .modal-row input, .modal-row select {
+    font: inherit; font-size: 13px; padding: 7px 8px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: var(--page-plane); color: var(--text-primary); width: 100%;
+  }
+  .row-remove {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 16px; cursor: pointer; padding: 4px; border-radius: 4px;
+  }
+  .row-remove:hover { color: var(--critical); background: var(--page-plane); }
+  .modal-errors { color: var(--critical); font-size: 13px; min-height: 18px; margin-top: 8px; }
+  .modal-output {
+    display: block; width: calc(100% - 40px); margin: 0 20px 12px; flex: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px; padding: 10px; line-height: 1.5;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--page-plane); color: var(--text-primary);
+    resize: vertical; min-height: 90px;
+  }
+  .modal-output[hidden] { display: none; }
+  .modal-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 20px; border-top: 1px solid var(--gridline); flex: none; gap: 12px;
+  }
+  .modal-status { font-size: 13px; color: var(--text-secondary); }
+  .modal-status.ok { color: var(--good); }
+  .modal-status.warn { color: var(--critical); }
+  button.btn.primary { background: var(--series-1); color: #fff; border: none; font-weight: 600; }
+  button.btn.primary:hover { filter: brightness(1.08); }
+
+  .sim-subtitle { font-size: 13px; color: var(--text-secondary); margin: 0 0 16px; }
+  .sim-result {
+    margin-top: 16px; padding: 14px 16px;
+    background: var(--page-plane); border: 1px solid var(--border); border-radius: 10px;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .sim-result[hidden] { display: none; }
+  .sim-result .sim-label { font-size: 13px; color: var(--text-secondary); }
+  .sim-result .sim-value { font-size: 24px; font-weight: 600; }
+  .sim-result .sim-delta { font-size: 13px; }
+  .sim-result .sim-delta.up { color: var(--good); }
+  .sim-result .sim-delta.down { color: var(--critical); }
 </style>
 </head>
 <body>
@@ -131,7 +224,14 @@
         <input type="checkbox" id="trainingToggle">
         Trainingsspiele einbeziehen
       </label>
+    </div>
+    <div class="controls controls-actions">
       <button class="btn" id="tableToggle" type="button">Tabelle anzeigen</button>
+      <button class="btn" id="newTurnierBtn" type="button">+ Neues Turnier</button>
+      <button class="btn" id="newTrainingBtn" type="button">+ Trainingsspiele</button>
+      <button class="btn" id="targetBtn" type="button">What if</button>
+      <button class="btn" id="exportCsvBtn" type="button">Export CSV</button>
+      <button class="btn" id="exportJsonBtn" type="button">Export JSON</button>
     </div>
 
     <div class="stats">
@@ -167,6 +267,72 @@
     </div>
 
     <footer id="pageFooter"></footer>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Neues Turnier erfassen</h2>
+        <button class="icon-btn" id="modalClose" type="button" aria-label="Schließen">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <textarea id="modalOutput" class="modal-output" readonly hidden></textarea>
+      <div class="modal-foot">
+        <span class="modal-status" id="modalStatus"></span>
+        <button class="btn primary" id="modalFinish" type="button">Fertig – Code kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="targetBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="targetTitle">
+      <div class="modal-head">
+        <h2 id="targetTitle">What if</h2>
+        <button class="icon-btn" id="targetClose" type="button" aria-label="Schließen">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="sim-subtitle" id="targetSubtitle"></p>
+
+        <div class="modal-field-row">
+          <div class="modal-field" style="flex: 0 0 130px;">
+            <label for="targetBaxInput">Ziel-BAX</label>
+            <input type="number" id="targetBaxInput" placeholder="optional">
+          </div>
+          <div class="modal-field" id="targetAnzahlSpieleWrap" hidden>
+            <label for="targetAnzahlSpieleInput">Anzahl Spiele</label>
+            <input type="number" id="targetAnzahlSpieleInput" min="1" step="1" placeholder="z.B. 10">
+          </div>
+        </div>
+        <div class="modal-field-row">
+          <div class="modal-field">
+            <label for="targetGegnerVonInput">Gegner-BAX von</label>
+            <input type="number" id="targetGegnerVonInput" placeholder="z.B. 460">
+          </div>
+          <div class="modal-field">
+            <label for="targetGegnerBisInput">bis</label>
+            <input type="number" id="targetGegnerBisInput" placeholder="z.B. 520">
+          </div>
+          <div class="modal-field">
+            <label for="targetGegnerBnivInput">Ziel-BNiv (Ø, optional)</label>
+            <input type="number" id="targetGegnerBnivInput" placeholder="Standard: Mitte">
+          </div>
+        </div>
+        <div class="modal-field">
+          <label for="targetWinrateInput">Winrate in % (optional – mischt Siege/Niederlagen statt immer gleich zu gewinnen)</label>
+          <input type="number" id="targetWinrateInput" min="0" max="100" placeholder="z.B. 60">
+        </div>
+        <label class="radio-option" id="targetRealisticSetsWrap" hidden>
+          <input type="checkbox" id="targetRealisticSets">
+          <span id="targetRealisticSetsLabel"></span>
+        </label>
+
+        <div class="sim-result" id="targetWinrateResult" hidden></div>
+        <div id="targetTableWrap" class="table-view" style="margin-top: 16px;"></div>
+      </div>
+      <div class="modal-foot">
+        <span class="modal-status" id="targetStatus"></span>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -209,7 +375,7 @@ function seriesFor(saison) {
   const key = state.training ? "mit_training" : "official";
   const milestones = season[key].milestones;
   const points = [{ turnier: "Saisonstart", n: 0, bax: season.balt }].concat(milestones);
-  return { saison: saison, verein: season.verein, balt: season.balt, points: points };
+  return { saison: saison, verein: season.verein, balt: season.balt, points: points, matches: season[key].matches, matchesDetail: season[key].matches_detail, satzverteilung: season.satzverteilung };
 }
 
 function buildSeasonSelect() {
@@ -452,7 +618,759 @@ function render() {
 }
 
 document.getElementById("pageFooter").textContent =
-  "Eigene Projektion auf Basis der erfassten Spiele – keine offizielle BAX-Berechnung.";
+  "Eigene Projektion auf Basis der erfassten Spiele – keine offizielle BAX-Berechnung. " +
+  "Stand: " + DATA.generated_at + " (nach Änderungen an spieler_daten.py: python webui.py erneut ausführen und Seite neu laden).";
+
+/* ---------- Modal: neue Turniere / Trainingsspiele als Code erfassen ---------- */
+
+const ERGEBNIS_OPTIONEN = ["", "2:0", "2:1", "1:2", "0:2"];
+
+const modalState = {
+  mode: null,        // "turnier" | "training"
+  turnierName: "",
+  trainingOutputMode: "append", // "append" | "block"
+  rows: [],
+};
+
+function emptyRow() {
+  return { vorname: "", nachname: "", verein: "", ergebnis: "" };
+}
+
+function isRowEmpty(row) {
+  return !row.vorname && !row.nachname && !row.verein && !row.ergebnis;
+}
+
+function ensureTrailingEmptyRow() {
+  if (modalState.rows.length === 0 || !isRowEmpty(modalState.rows[modalState.rows.length - 1])) {
+    modalState.rows.push(emptyRow());
+  }
+}
+
+function saisonVarName(saison) {
+  return "SAISON_" + saison.replace("/", "_");
+}
+
+function pyStringEscape(s) {
+  return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
+function buildRow(row) {
+  const div = document.createElement("div");
+  div.className = "modal-row";
+
+  const vorname = document.createElement("input");
+  vorname.type = "text";
+  vorname.placeholder = "Vorname";
+  vorname.value = row.vorname;
+
+  const nachname = document.createElement("input");
+  nachname.type = "text";
+  nachname.placeholder = "Nachname";
+  nachname.value = row.nachname;
+
+  const verein = document.createElement("input");
+  verein.type = "text";
+  verein.placeholder = "Verein";
+  verein.value = row.verein;
+
+  const ergebnis = document.createElement("select");
+  ERGEBNIS_OPTIONEN.forEach((val) => {
+    const opt = document.createElement("option");
+    opt.value = val;
+    opt.textContent = val === "" ? "– Ergebnis –" : val;
+    ergebnis.appendChild(opt);
+  });
+  ergebnis.value = row.ergebnis;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.type = "button";
+  removeBtn.className = "row-remove";
+  removeBtn.textContent = "×";
+  removeBtn.setAttribute("aria-label", "Zeile entfernen");
+  removeBtn.addEventListener("click", () => {
+    const idx = modalState.rows.indexOf(row);
+    if (idx !== -1) modalState.rows.splice(idx, 1);
+    ensureTrailingEmptyRow();
+    renderRowsOnly();
+  });
+
+  function syncAndMaybeGrow() {
+    row.vorname = vorname.value;
+    row.nachname = nachname.value;
+    row.verein = verein.value;
+    row.ergebnis = ergebnis.value;
+    const idx = modalState.rows.indexOf(row);
+    const isLast = idx === modalState.rows.length - 1;
+    if (isLast && !isRowEmpty(row)) {
+      const newRow = emptyRow();
+      modalState.rows.push(newRow);
+      document.getElementById("modalRows").appendChild(buildRow(newRow));
+    }
+  }
+
+  vorname.addEventListener("input", syncAndMaybeGrow);
+  nachname.addEventListener("input", syncAndMaybeGrow);
+  verein.addEventListener("input", syncAndMaybeGrow);
+  ergebnis.addEventListener("change", syncAndMaybeGrow);
+
+  div.appendChild(vorname);
+  div.appendChild(nachname);
+  div.appendChild(verein);
+  div.appendChild(ergebnis);
+  div.appendChild(removeBtn);
+  return div;
+}
+
+function renderRowsOnly() {
+  const rowsContainer = document.getElementById("modalRows");
+  rowsContainer.innerHTML = "";
+  modalState.rows.forEach((row) => rowsContainer.appendChild(buildRow(row)));
+}
+
+function renderModalBody() {
+  const body = document.getElementById("modalBody");
+  body.innerHTML = "";
+
+  if (modalState.mode === "turnier") {
+    const field = document.createElement("div");
+    field.className = "modal-field";
+    const label = document.createElement("label");
+    label.textContent = "Turniername";
+    label.htmlFor = "turnierNameInput";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = "turnierNameInput";
+    input.placeholder = 'z.B. "2. RLT Verband B-Feld"';
+    input.value = modalState.turnierName;
+    input.addEventListener("input", () => { modalState.turnierName = input.value; });
+    field.appendChild(label);
+    field.appendChild(input);
+    body.appendChild(field);
+  } else {
+    const field = document.createElement("div");
+    field.className = "modal-field modal-radio-group";
+    const legend = document.createElement("div");
+    legend.className = "modal-legend";
+    legend.textContent = "Ausgabe";
+    field.appendChild(legend);
+
+    const options = [
+      ["append", 'Nur Spiele (Turnier "Trainingsspiele" existiert bereits im Code)'],
+      ["block", 'Neuen Turnier-Block "Trainingsspiele" erstellen'],
+    ];
+    options.forEach(([value, labelText]) => {
+      const optLabel = document.createElement("label");
+      optLabel.className = "radio-option";
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "trainingOutputMode";
+      radio.value = value;
+      radio.checked = modalState.trainingOutputMode === value;
+      radio.addEventListener("change", () => { modalState.trainingOutputMode = value; });
+      const span = document.createElement("span");
+      span.textContent = labelText;
+      optLabel.appendChild(radio);
+      optLabel.appendChild(span);
+      field.appendChild(optLabel);
+    });
+    body.appendChild(field);
+  }
+
+  const rowsHead = document.createElement("div");
+  rowsHead.className = "modal-rows-head";
+  ["Vorname", "Nachname", "Verein", "Ergebnis", ""].forEach((t) => {
+    const div = document.createElement("div");
+    div.textContent = t;
+    rowsHead.appendChild(div);
+  });
+  body.appendChild(rowsHead);
+
+  const rowsContainer = document.createElement("div");
+  rowsContainer.id = "modalRows";
+  body.appendChild(rowsContainer);
+
+  renderRowsOnly();
+
+  const errors = document.createElement("div");
+  errors.className = "modal-errors";
+  errors.id = "modalErrors";
+  body.appendChild(errors);
+}
+
+function openModal(mode) {
+  modalState.mode = mode;
+  modalState.turnierName = "";
+  modalState.trainingOutputMode = "append";
+  modalState.rows = [emptyRow(), emptyRow()];
+
+  document.getElementById("modalTitle").textContent =
+    mode === "turnier" ? "Neues Turnier erfassen" : "Trainingsspiele erfassen";
+  document.getElementById("modalStatus").textContent = "";
+  document.getElementById("modalStatus").className = "modal-status";
+  const output = document.getElementById("modalOutput");
+  output.hidden = true;
+  output.value = "";
+
+  renderModalBody();
+  document.getElementById("modalBackdrop").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("modalBackdrop").hidden = true;
+  document.body.style.overflow = "";
+}
+
+function ergebnisToPair(erg) {
+  return erg.split(":").map(Number);
+}
+
+function generateCode() {
+  const filled = modalState.rows.filter((r) => !isRowEmpty(r));
+  const incomplete = filled.filter((r) => !r.vorname || !r.nachname || !r.verein || !r.ergebnis);
+
+  if (modalState.mode === "turnier" && !modalState.turnierName.trim()) {
+    return { error: "Bitte einen Turniernamen eingeben." };
+  }
+  if (filled.length === 0) {
+    return { error: "Bitte mindestens ein Spiel eintragen." };
+  }
+  if (incomplete.length > 0) {
+    return { error: `${incomplete.length} Zeile(n) sind unvollständig – bitte alle Felder ausfüllen oder die Zeile mit × entfernen.` };
+  }
+
+  const saisonVar = saisonVarName(state.primary);
+  const isTraining = modalState.mode === "training";
+
+  const matchLines = filled.map((r) => {
+    const [a, b] = ergebnisToPair(r.ergebnis);
+    const trainingSuffix = isTraining ? ", ist_training=True" : "";
+    return `                EinzelMatch(get_bax("${pyStringEscape(r.vorname)}", "${pyStringEscape(r.nachname)}", "${pyStringEscape(r.verein)}", "einzel", vorsaison(${saisonVar})), [${a},${b}]${trainingSuffix}),`;
+  });
+
+  let code;
+  if (modalState.mode === "turnier") {
+    code = `            Turnier("${pyStringEscape(modalState.turnierName)}", [\n${matchLines.join("\n")}\n            ]),`;
+  } else if (modalState.trainingOutputMode === "block") {
+    code = `            Turnier("Trainingsspiele", [\n${matchLines.join("\n")}\n            ]),`;
+  } else {
+    code = matchLines.join("\n");
+  }
+
+  return { code };
+}
+
+function legacyCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+function tryCopy(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(() => true).catch(() => legacyCopy(text));
+  }
+  return Promise.resolve(legacyCopy(text));
+}
+
+document.getElementById("newTurnierBtn").addEventListener("click", () => openModal("turnier"));
+document.getElementById("newTrainingBtn").addEventListener("click", () => openModal("training"));
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("modalBackdrop").addEventListener("click", (e) => {
+  if (e.target.id === "modalBackdrop") closeModal();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !document.getElementById("modalBackdrop").hidden) closeModal();
+});
+
+document.getElementById("modalFinish").addEventListener("click", () => {
+  const result = generateCode();
+  const errorsEl = document.getElementById("modalErrors");
+  const statusEl = document.getElementById("modalStatus");
+  const output = document.getElementById("modalOutput");
+
+  if (result.error) {
+    errorsEl.textContent = result.error;
+    statusEl.textContent = "";
+    output.hidden = true;
+    return;
+  }
+  errorsEl.textContent = "";
+
+  output.value = result.code;
+  output.hidden = false;
+  output.focus();
+  output.select();
+
+  tryCopy(result.code).then((ok) => {
+    statusEl.textContent = ok
+      ? "In Zwischenablage kopiert."
+      : "Kopieren fehlgeschlagen – Code unten ist markiert, bitte manuell kopieren (Strg/Cmd+C).";
+    statusEl.className = "modal-status " + (ok ? "ok" : "warn");
+  });
+});
+
+/* ---------- Ende Modal ---------- */
+
+/* ---------- BAX-Formel (JS-Port von src/berechnung/berechnung.py) ---------- */
+
+function pythonRound(x) {
+  const floor = Math.floor(x);
+  const diff = x - floor;
+  if (diff < 0.5) return floor;
+  if (diff > 0.5) return floor + 1;
+  return (floor % 2 === 0) ? floor : floor + 1; // exakt .5 -> auf gerade Zahl runden, wie Pythons round()
+}
+
+function berechneBaxNiveau(baxGegner) {
+  const n = baxGegner.length;
+  if (n === 0) return 0;
+  return baxGegner.reduce((a, b) => a + b, 0) / n;
+}
+
+function berechneGewinnerwartung(balt, bGegner) {
+  const D = bGegner - balt;
+  return 1 / (1 + Math.pow(10, D / 50));
+}
+
+function berechneSsoll(balt, baxGegner) {
+  return baxGegner.reduce((sum, b) => sum + berechneGewinnerwartung(balt, b), 0);
+}
+
+function berechneSistWert(siege, niederlagen) {
+  if ((siege === 2 && niederlagen === 0) || (siege === 3 && niederlagen === 0)) return 1.0;
+  if ((siege === 2 && niederlagen === 1) || (siege === 3 && niederlagen === 2)) return 0.8;
+  if (siege === 3 && niederlagen === 1) return 0.9;
+  if ((siege === 0 && niederlagen === 2) || (siege === 0 && niederlagen === 3)) return 0.0;
+  if ((siege === 1 && niederlagen === 2) || (siege === 2 && niederlagen === 3)) return 0.2;
+  if (siege === 1 && niederlagen === 3) return 0.1;
+  return 0.0;
+}
+
+function berechneSist(ergebnisse) {
+  return ergebnisse.reduce((sum, erg) => sum + berechneSistWert(erg[0], erg[1]), 0);
+}
+
+function berechneBerst(bniv, spielefaktor, sist, n) {
+  return bniv + spielefaktor * (sist - n / 2);
+}
+
+function berechneBn(balt, spielefaktor, sist, ssoll) {
+  return balt + spielefaktor * (sist - ssoll);
+}
+
+function berechneBaxWert(baxAlt, baxGegnerListe, ergebnisListe) {
+  const n = baxGegnerListe.length;
+  if (n === 0) return baxAlt;
+
+  const bniv = berechneBaxNiveau(baxGegnerListe);
+  const ssoll = berechneSsoll(baxAlt, baxGegnerListe);
+  const sist = berechneSist(ergebnisListe);
+  const spielefaktor = 500 / (n + 50);
+  const berst = berechneBerst(bniv, spielefaktor, sist, n);
+  const bn = berechneBn(baxAlt, spielefaktor, sist, ssoll);
+
+  let bneu;
+  if (baxAlt <= bniv) {
+    bneu = bn < berst ? bn : berst;
+  } else {
+    bneu = bn > berst ? (berst + (n + 2) * bn) / (n + 3) : berst;
+  }
+  return pythonRound(bneu);
+}
+
+/* ---------- What if (vorwärts: BAX berechnen / rückwärts: Ziel-BAX) ---------- */
+
+const ERGEBNISSE_FUER_ZIEL = ["2:0", "2:1", "1:2", "0:2"];
+const ZIEL_MAX_ANZAHL = 100;
+
+const GEGNER_AUSREISSER_ANTEIL = 0.2; // Anteil der Spiele, der an den Rändern (von/bis) simuliert wird
+
+// Erzeugt n Gegner-BAX-Werte innerhalb [von, bis]: der Großteil liegt bei zielBniv,
+// ein kleinerer, fester Anteil verteilt sich als Ausreißer auf die Ranggrenzen von/bis --
+// so, dass der tatsächliche Durchschnitt (Bniv) über alle n Werte zielBniv ergibt.
+function generiereGegner(n, von, bis, zielBniv) {
+  if (von === bis) return Array(n).fill(von);
+
+  const ausreisserAnzahl = Math.min(n, Math.round(n * GEGNER_AUSREISSER_ANTEIL));
+  const vonAnzahl = Math.floor(ausreisserAnzahl / 2);
+  const bisAnzahl = ausreisserAnzahl - vonAnzahl;
+  const fillerAnzahl = n - vonAnzahl - bisAnzahl;
+
+  const ausreisser = Array(vonAnzahl).fill(von).concat(Array(bisAnzahl).fill(bis));
+  if (fillerAnzahl <= 0) return ausreisser;
+
+  const ausreisserSumme = vonAnzahl * von + bisAnzahl * bis;
+  const fillerExakt = (zielBniv * n - ausreisserSumme) / fillerAnzahl;
+  const fillerBoden = Math.floor(fillerExakt);
+  const fillerDecke = fillerBoden + 1;
+  const deckeAnteil = fillerExakt - fillerBoden;
+  const deckeAnzahl = pythonRound(deckeAnteil * fillerAnzahl);
+  const bodenAnzahl = fillerAnzahl - deckeAnzahl;
+
+  // Ausreißer bleiben immer innerhalb [von, bis]; Filler-Werte werden zur Sicherheit
+  // ebenfalls dorthin geklammert (nur relevant, wenn zielBniv sehr nah an einem Rand liegt).
+  const klemmen = (v) => Math.max(von, Math.min(bis, v));
+  const filler = Array(bodenAnzahl).fill(klemmen(fillerBoden)).concat(Array(deckeAnzahl).fill(klemmen(fillerDecke)));
+
+  return ausreisser.concat(filler);
+}
+
+// ergebnisseForN(n): gibt die Liste der [Siege,Niederlagen]-Paare für n zusätzliche Spiele zurück
+// (z.B. immer dasselbe Ergebnis, oder eine Sieg/Niederlage-Mischung nach Winrate).
+function findeAnzahlFuerZiel(balt, baseGegner, baseErgebnisse, gegnerGenFn, ergebnisseForN, ziel, aktuellerBax) {
+  const richtung = Math.sign(ziel - aktuellerBax);
+  if (richtung === 0) return { anzahl: 0, erreichbar: true };
+
+  for (let n = 1; n <= ZIEL_MAX_ANZAHL; n++) {
+    const gegnerNeu = baseGegner.concat(gegnerGenFn(n));
+    const ergebnisNeu = baseErgebnisse.concat(ergebnisseForN(n));
+    const bax = berechneBaxWert(balt, gegnerNeu, ergebnisNeu);
+    if ((richtung > 0 && bax >= ziel) || (richtung < 0 && bax <= ziel)) {
+      return { anzahl: n, erreichbar: true, bax };
+    }
+  }
+  return { anzahl: null, erreichbar: false };
+}
+
+function winrateErgebnissePur(n, winrate) {
+  const siege = pythonRound(n * winrate / 100);
+  return Array(siege).fill([2, 0]).concat(Array(n - siege).fill([0, 2]));
+}
+
+function winrateErgebnisseRealistisch(n, winrate, sv) {
+  const siege = pythonRound(n * winrate / 100);
+  const niederlagen = n - siege;
+  const siege3Satz = pythonRound(siege * sv.anteil_3satz_sieg);
+  const niederlagen3Satz = pythonRound(niederlagen * sv.anteil_3satz_niederlage);
+  return Array(siege - siege3Satz).fill([2, 0])
+    .concat(Array(siege3Satz).fill([2, 1]))
+    .concat(Array(niederlagen - niederlagen3Satz).fill([0, 2]))
+    .concat(Array(niederlagen3Satz).fill([1, 2]));
+}
+
+function updateTargetResult() {
+  const primary = seriesFor(state.primary);
+  const wrap = document.getElementById("targetTableWrap");
+  const statusEl = document.getElementById("targetStatus");
+  const winrateResultEl = document.getElementById("targetWinrateResult");
+
+  const zielRaw = document.getElementById("targetBaxInput").value;
+  const vonRaw = document.getElementById("targetGegnerVonInput").value;
+  const bisRaw = document.getElementById("targetGegnerBisInput").value;
+  const bnivRaw = document.getElementById("targetGegnerBnivInput").value;
+  const winrateRaw = document.getElementById("targetWinrateInput").value;
+  const anzahlRaw = document.getElementById("targetAnzahlSpieleInput").value;
+  wrap.innerHTML = "";
+  winrateResultEl.hidden = true;
+
+  const vorwaertsModus = zielRaw === "";
+  document.getElementById("targetAnzahlSpieleWrap").hidden = !vorwaertsModus;
+
+  if (vonRaw === "" || bisRaw === "" || isNaN(Number(vonRaw)) || isNaN(Number(bisRaw))) {
+    statusEl.textContent = "Gegner-BAX von/bis eintragen, um die Auswertung zu sehen.";
+    statusEl.className = "modal-status";
+    return;
+  }
+
+  const von = Number(vonRaw);
+  const bis = Number(bisRaw);
+  if (von > bis) {
+    statusEl.textContent = "'Von' darf nicht größer als 'bis' sein.";
+    statusEl.className = "modal-status warn";
+    return;
+  }
+
+  const zielBniv = bnivRaw !== "" ? Number(bnivRaw) : (von + bis) / 2;
+  if (isNaN(zielBniv) || zielBniv < von || zielBniv > bis) {
+    statusEl.textContent = "Ziel-BNiv muss zwischen 'von' und 'bis' liegen.";
+    statusEl.className = "modal-status warn";
+    return;
+  }
+
+  const gegnerGenFn = (n) => generiereGegner(n, von, bis, zielBniv);
+  const aktuellerBax = primary.points[primary.points.length - 1].bax;
+  const baseGegner = primary.matches.map((m) => m[0]);
+  const baseErgebnisse = primary.matches.map((m) => m[1]);
+
+  let winrate = null;
+  if (winrateRaw !== "") {
+    winrate = Number(winrateRaw);
+    if (isNaN(winrate) || winrate < 0 || winrate > 100) {
+      statusEl.textContent = "Winrate muss zwischen 0 und 100 liegen.";
+      statusEl.className = "modal-status warn";
+      return;
+    }
+  }
+  const sv = primary.satzverteilung;
+  const realistisch = sv && document.getElementById("targetRealisticSets").checked;
+
+  if (vorwaertsModus) {
+    if (anzahlRaw === "" || isNaN(Number(anzahlRaw)) || Number(anzahlRaw) < 1) {
+      statusEl.textContent = "Anzahl Spiele eintragen (oder ein Ziel-BAX, um stattdessen die nötige Anzahl zu berechnen).";
+      statusEl.className = "modal-status";
+      return;
+    }
+    statusEl.textContent = "";
+    statusEl.className = "modal-status";
+    const n = Math.round(Number(anzahlRaw));
+
+    if (winrate !== null) {
+      const ergebnisse = realistisch ? winrateErgebnisseRealistisch(n, winrate, sv) : winrateErgebnissePur(n, winrate);
+      const gegner = gegnerGenFn(n);
+      const bax = berechneBaxWert(primary.balt, baseGegner.concat(gegner), baseErgebnisse.concat(ergebnisse));
+      const delta = bax - aktuellerBax;
+
+      winrateResultEl.hidden = false;
+      winrateResultEl.innerHTML = "";
+      const label = document.createElement("span");
+      label.className = "sim-label";
+      label.textContent = realistisch
+        ? `Bei ${winrate}% Winrate mit realistischer Satzverteilung (Saison ${sv.saison}) nach ${n} Spielen:`
+        : `Bei ${winrate}% Winrate (Annahme: Siege 2:0, Niederlagen 0:2) nach ${n} Spielen:`;
+      const value = document.createElement("span");
+      value.className = "sim-value";
+      value.textContent = bax;
+      const deltaEl = document.createElement("span");
+      deltaEl.className = "sim-delta " + (delta >= 0 ? "up" : "down");
+      deltaEl.textContent = `(${delta >= 0 ? "+" : ""}${delta} ggü. aktuell ${aktuellerBax})`;
+      winrateResultEl.appendChild(label);
+      winrateResultEl.appendChild(value);
+      winrateResultEl.appendChild(deltaEl);
+    }
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    ["Ergebnis (jedes Mal gleich)", `Neuer BAX nach ${n} Spielen`].forEach((t) => {
+      const th = document.createElement("th");
+      th.textContent = t;
+      headRow.appendChild(th);
+    });
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    ERGEBNISSE_FUER_ZIEL.forEach((erg) => {
+      const paar = erg.split(":").map(Number);
+      const gegner = gegnerGenFn(n);
+      const bax = berechneBaxWert(primary.balt, baseGegner.concat(gegner), baseErgebnisse.concat(Array(n).fill(paar)));
+
+      const tr = document.createElement("tr");
+      const tdErg = document.createElement("td");
+      tdErg.textContent = erg;
+      const tdBax = document.createElement("td");
+      tdBax.textContent = bax;
+      tr.appendChild(tdErg);
+      tr.appendChild(tdBax);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    return;
+  }
+
+  // Rückwärts: Ziel-BAX gegeben -> benötigte Anzahl Spiele wird gesucht
+  const ziel = Number(zielRaw);
+  if (isNaN(ziel)) {
+    statusEl.textContent = "Gültiges Ziel-BAX eintragen.";
+    statusEl.className = "modal-status warn";
+    return;
+  }
+  if (ziel === aktuellerBax) {
+    statusEl.textContent = `Ziel bereits erreicht (aktueller BAX = ${aktuellerBax}).`;
+    statusEl.className = "modal-status ok";
+    return;
+  }
+  statusEl.textContent = "";
+  statusEl.className = "modal-status";
+
+  if (winrate !== null) {
+    const ergebnisseForN = realistisch
+      ? (n) => winrateErgebnisseRealistisch(n, winrate, sv)
+      : (n) => winrateErgebnissePur(n, winrate);
+
+    const { anzahl, erreichbar } = findeAnzahlFuerZiel(
+      primary.balt, baseGegner, baseErgebnisse, gegnerGenFn, ergebnisseForN, ziel, aktuellerBax
+    );
+    winrateResultEl.hidden = false;
+    winrateResultEl.innerHTML = "";
+    const label = document.createElement("span");
+    label.className = "sim-label";
+    label.textContent = realistisch
+      ? `Bei ${winrate}% Winrate mit realistischer Satzverteilung (Saison ${sv.saison}):`
+      : `Bei ${winrate}% Winrate gegen diese Gegner (Annahme: Siege 2:0, Niederlagen 0:2):`;
+    const value = document.createElement("span");
+    value.className = "sim-value";
+    value.textContent = erreichbar ? `${anzahl} Spiele` : `> ${ZIEL_MAX_ANZAHL} Spiele`;
+    winrateResultEl.appendChild(label);
+    winrateResultEl.appendChild(value);
+  }
+
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  ["Ergebnis (jedes Mal gleich)", "Neuer BAX (1×)", `Anzahl bis Ziel ${ziel}`].forEach((t) => {
+    const th = document.createElement("th");
+    th.textContent = t;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  ERGEBNISSE_FUER_ZIEL.forEach((erg) => {
+    const paar = erg.split(":").map(Number);
+    const bax1x = berechneBaxWert(primary.balt, baseGegner.concat(gegnerGenFn(1)), baseErgebnisse.concat([paar]));
+    const { anzahl, erreichbar } = findeAnzahlFuerZiel(
+      primary.balt, baseGegner, baseErgebnisse, gegnerGenFn,
+      (n) => Array(n).fill(paar),
+      ziel, aktuellerBax
+    );
+
+    const tr = document.createElement("tr");
+    const tdErg = document.createElement("td");
+    tdErg.textContent = erg;
+    const tdBax1x = document.createElement("td");
+    tdBax1x.textContent = bax1x;
+    const tdAnzahl = document.createElement("td");
+    tdAnzahl.textContent = erreichbar ? (anzahl === 0 ? "bereits erreicht" : anzahl) : "nicht in " + ZIEL_MAX_ANZAHL;
+    if (erreichbar) tdAnzahl.style.color = "var(--good)";
+    tr.appendChild(tdErg);
+    tr.appendChild(tdBax1x);
+    tr.appendChild(tdAnzahl);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+}
+
+function openTargetModal() {
+  const primary = seriesFor(state.primary);
+  document.getElementById("targetBaxInput").value = "";
+  document.getElementById("targetAnzahlSpieleInput").value = "";
+  document.getElementById("targetAnzahlSpieleWrap").hidden = false;
+  document.getElementById("targetGegnerVonInput").value = "";
+  document.getElementById("targetGegnerBisInput").value = "";
+  document.getElementById("targetGegnerBnivInput").value = "";
+  document.getElementById("targetWinrateInput").value = "";
+  document.getElementById("targetSubtitle").textContent =
+    `${primary.verein} · Saison ${primary.saison}` + (state.training ? " · inkl. Training" : "") +
+    ` — aktueller BAX: ${primary.points[primary.points.length - 1].bax}.`;
+  document.getElementById("targetTableWrap").innerHTML = "";
+  document.getElementById("targetWinrateResult").hidden = true;
+  document.getElementById("targetStatus").textContent = "";
+
+  const sv = primary.satzverteilung;
+  const wrap = document.getElementById("targetRealisticSetsWrap");
+  const checkbox = document.getElementById("targetRealisticSets");
+  if (sv) {
+    wrap.hidden = false;
+    checkbox.checked = true;
+    document.getElementById("targetRealisticSetsLabel").textContent =
+      `Realistische Satzverteilung aus Saison ${sv.saison} verwenden ` +
+      `(${sv.anzahl_spiele} Spiele: ${Math.round(sv.anteil_3satz_sieg * 100)}% der Siege und ` +
+      `${Math.round(sv.anteil_3satz_niederlage * 100)}% der Niederlagen gingen über 3 Sätze)`;
+  } else {
+    wrap.hidden = true;
+    checkbox.checked = false;
+  }
+
+  document.getElementById("targetBackdrop").hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeTargetModal() {
+  document.getElementById("targetBackdrop").hidden = true;
+  document.body.style.overflow = "";
+}
+
+document.getElementById("targetBtn").addEventListener("click", openTargetModal);
+document.getElementById("targetClose").addEventListener("click", closeTargetModal);
+document.getElementById("targetBackdrop").addEventListener("click", (e) => {
+  if (e.target.id === "targetBackdrop") closeTargetModal();
+});
+document.getElementById("targetBaxInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetGegnerVonInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetGegnerBisInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetGegnerBnivInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetWinrateInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetAnzahlSpieleInput").addEventListener("input", updateTargetResult);
+document.getElementById("targetRealisticSets").addEventListener("change", updateTargetResult);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !document.getElementById("targetBackdrop").hidden) closeTargetModal();
+});
+
+/* ---------- Ende What if (vorwärts: BAX berechnen / rückwärts: Ziel-BAX) ---------- */
+
+/* ---------- Export ---------- */
+
+function csvEscape(value) {
+  const s = String(value);
+  if (/[",\n]/.test(s)) {
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
+}
+
+function triggerDownload(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType + ";charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function seasonFileTag() {
+  const primary = seriesFor(state.primary);
+  return `bax_${primary.saison.replace("/", "-")}` + (state.training ? "_training" : "");
+}
+
+function exportCsv() {
+  const primary = seriesFor(state.primary);
+  const header = ["Turnier", "Gegner-BAX", "Ergebnis", "Training"];
+  const rows = primary.matchesDetail.map((m) => [
+    m.turnier,
+    m.gegner_bax,
+    `${m.ergebnis[0]}:${m.ergebnis[1]}`,
+    m.ist_training ? "Ja" : "Nein",
+  ]);
+  const lines = [header, ...rows].map((row) => row.map(csvEscape).join(","));
+  triggerDownload(seasonFileTag() + ".csv", lines.join("\n"), "text/csv");
+}
+
+function exportJson() {
+  const primary = seriesFor(state.primary);
+  const payload = {
+    saison: primary.saison,
+    verein: primary.verein,
+    balt: primary.balt,
+    spiele: primary.matchesDetail.map((m) => ({
+      turnier: m.turnier,
+      gegner_bax: m.gegner_bax,
+      ergebnis: m.ergebnis,
+      ist_training: m.ist_training,
+    })),
+  };
+  triggerDownload(seasonFileTag() + ".json", JSON.stringify(payload, null, 2), "application/json");
+}
+
+document.getElementById("exportCsvBtn").addEventListener("click", exportCsv);
+document.getElementById("exportJsonBtn").addEventListener("click", exportJson);
+
+/* ---------- Ende Export ---------- */
 
 buildSeasonSelect();
 render();

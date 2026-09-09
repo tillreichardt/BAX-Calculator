@@ -31,6 +31,20 @@ class Spieler:
                     spiele.append(spiel)
         return spiele
 
+    def alleSpieleEinzelDetailliert(self, training_einschliessen: bool = False):
+        """Wie alleSpieleEinzel, aber inklusive Turniername je Spiel (für den Export)."""
+        ergebnis = []
+        for turnier in self.baxTurniereEinzel:
+            for spiel in turnier.spiele:
+                if training_einschliessen or not spiel.ist_training:
+                    ergebnis.append({
+                        "turnier": turnier.name,
+                        "gegner_bax": spiel.gegner_bax,
+                        "ergebnis": spiel.ergebnis,
+                        "ist_training": spiel.ist_training,
+                    })
+        return ergebnis
+
     def baxBerechnungEinzel(self, training_einschliessen: bool = False):
         matches = self.alleSpieleEinzel(training_einschliessen)
         titel = "Einzel" + (" inkl. Training" if training_einschliessen else "")
