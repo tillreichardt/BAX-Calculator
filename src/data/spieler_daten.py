@@ -20,7 +20,8 @@ spielerListe = [
             Turnier("Trainingsspiele", [
                 # 11.08.26
                 EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,1], ist_training=True),
-
+                # 21.08.26
+                EinzelMatch(get_bax("Markus", "Humrich", "BC Düsseldorf", "einzel", vorsaison(SAISON_2026_27)), [0,2], ist_training=True),
                 # 03.09.26
                 EinzelMatch(get_bax("Paul", "Hofschlaeger", "FC Langenfeld", "einzel", vorsaison(SAISON_2026_27)), [2,0], ist_training=True),
                 # 04.09.26

@@ -845,14 +845,16 @@ function generateCode() {
   const matchLines = filled.map((r) => {
     const [a, b] = ergebnisToPair(r.ergebnis);
     const trainingSuffix = isTraining ? ", ist_training=True" : "";
-    return `                EinzelMatch(get_bax("${pyStringEscape(r.vorname)}", "${pyStringEscape(r.nachname)}", "${pyStringEscape(r.verein)}", "einzel", vorsaison(${saisonVar})), [${a},${b}]${trainingSuffix}),`;
+    return `EinzelMatch(get_bax("${pyStringEscape(r.vorname)}", "${pyStringEscape(r.nachname)}", "${pyStringEscape(r.verein)}", "einzel", vorsaison(${saisonVar})), [${a},${b}]${trainingSuffix}),`;
   });
 
   let code;
   if (modalState.mode === "turnier") {
-    code = `            Turnier("${pyStringEscape(modalState.turnierName)}", [\n${matchLines.join("\n")}\n            ]),`;
+    const indentedLines = matchLines.map((line) => "                " + line).join("\n");
+    code = `            Turnier("${pyStringEscape(modalState.turnierName)}", [\n${indentedLines}\n            ]),`;
   } else if (modalState.trainingOutputMode === "block") {
-    code = `            Turnier("Trainingsspiele", [\n${matchLines.join("\n")}\n            ]),`;
+    const indentedLines = matchLines.map((line) => "                " + line).join("\n");
+    code = `            Turnier("Trainingsspiele", [\n${indentedLines}\n            ]),`;
   } else {
     code = matchLines.join("\n");
   }
