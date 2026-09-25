@@ -28,6 +28,10 @@ spielerListe = [
                 EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
                 # 08.09.26
                 EinzelMatch(get_bax("Jonas", "Klose", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [1,2], ist_training=True),
+                # 22.09.26
+                EinzelMatch(get_bax("Lukas", "Bartsch", "BG 62 Dormagen", "einzel", vorsaison(SAISON_2026_27)), [2,0], ist_training=True),
+                # 24.09.26
+                EinzelMatch(get_bax("Marvin", "Arlt", "FC Langenfeld", "einzel", vorsaison(SAISON_2026_27)), [0,2], ist_training=True),
             ]),
             Turnier("1. RLT Verband B-Feld", [
                 EinzelMatch(get_bax("Jakob", "Hummelsheim", "Kölner FC BG", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
@@ -35,6 +39,11 @@ spielerListe = [
                 EinzelMatch(get_bax("Robin", "Langhoff", "BAT Bergisch Gladbach", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
                 EinzelMatch(get_bax("Fabian", "Disic", "SSV WBG Bochum", "einzel", vorsaison(SAISON_2026_27)), [1,2]),
                 EinzelMatch(get_bax("Timo", "Gollan", "VfL Bochum Badminton", "einzel", vorsaison(SAISON_2026_27)), [2,1]),
+            ]),
+            Turnier("Hinrunde 2026/27", [
+                EinzelMatch(get_bax("Christop", "Tietz", "TSV Meerbusch", "einzel", vorsaison(SAISON_2026_27)), [2,0]),
+                EinzelMatch(get_bax("Rui Di", "Wu", "SG Ddorf-Unterrath", "einzel", vorsaison(SAISON_2026_27)), [0,2]),
+                EinzelMatch(get_bax("Matthias", "Hampel", "BC Heiligenhaus", "einzel", vorsaison(SAISON_2026_27)), [2,0]),
             ]),
         ]
     ),
